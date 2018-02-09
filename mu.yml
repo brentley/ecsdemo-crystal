@@ -1,0 +1,16 @@
+---
+service:
+  desiredCount: 3
+  maxSize: 6
+  port: 3000
+  priority: 2
+  pathPatterns:
+  - /crystal
+  networkMode: awsvpc
+parameters:
+  'mu-service-ecsdemo-crystal-acceptance':
+    ElbHttpListenerArn:
+        mu-loadbalancer-acceptance-BackendLBHttpListenerArn
+  'mu-service-ecsdemo-crystal-production':
+    ElbHttpListenerArn:
+        mu-loadbalancer-production-BackendLBHttpListenerArn
