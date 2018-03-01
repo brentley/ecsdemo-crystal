@@ -13,9 +13,9 @@ service:
   - /crystal
   networkMode: awsvpc
 parameters:
-  'mu-service-ecsdemo-crystal-acceptance':
+  '${env:MU_NAMESPACE}-service-ecsdemo-crystal-acceptance':
     ElbHttpListenerArn:
-        mu-loadbalancer-acceptance-BackendLBHttpListenerArn
-  'mu-service-ecsdemo-crystal-production':
+        ${env:MU_NAMESPACE}-loadbalancer-acceptance-BackendLBHttpListenerArn
+  '${env:MU_NAMESPACE}-service-ecsdemo-crystal-production':
     ElbHttpListenerArn:
-        mu-loadbalancer-production-BackendLBHttpListenerArn
+        ${env:MU_NAMESPACE}-loadbalancer-production-BackendLBHttpListenerArn
