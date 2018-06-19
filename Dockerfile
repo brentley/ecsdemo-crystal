@@ -1,4 +1,4 @@
-FROM crystallang/crystal:latest
+FROM crystallang/crystal:0.24.2
 WORKDIR /src/
 COPY . .
 RUN shards install
