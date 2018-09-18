@@ -1,7 +1,2 @@
 name: shards
 version: 0.1.0
-
-dependencies:
-  interface_address:
-    github: t-richards/interface_address
-    version: ~> 1.0.0
