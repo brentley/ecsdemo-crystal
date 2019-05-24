@@ -9,3 +9,7 @@ service:
         environment: crystal
       production:
         disabled: true   
+  schedules:
+  - name: minutely
+    expression: cron(* * * * ? *)
+    command: ['echo','It looks like the date is $(date)']
