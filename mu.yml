@@ -1,5 +1,6 @@
 ---
 service:
+  minSize: 3
   desiredCount: 3
   maxSize: 6
   port: 3000
