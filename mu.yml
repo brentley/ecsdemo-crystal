@@ -13,3 +13,7 @@ service:
   - name: minutely
     expression: cron(* * * * ? *)
     command: ['echo','It looks like the date is $(date)']
+
+  database:
+      name: crystaldb  
+      allocatedStorage: 100
