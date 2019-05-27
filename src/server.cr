@@ -3,7 +3,13 @@ require "http/server"
 
 require "mysql"
 
-DB.open "mysql://root@localhost/test" do |db|
+db_username = ENV["DB_USERNAME"]
+db_password = ENV["DB_PASSWORD"]
+db_endpoint = ENV["DB_ENDPOINT"]
+db_port = ENV["DB_PORT"]
+db_name = ENV["DB_NAME"]
+
+DB.open "mysql://#{db_username}:#{db_password}@#{db_endpoint}/#{db_name}" do |db|
   puts "Current time:"
   db.query "select NOW()"
 end
