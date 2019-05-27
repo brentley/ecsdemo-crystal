@@ -17,14 +17,16 @@ log.debug("Created logger")
 log.info("Program started")
 log.warn("Nothing to do!")
 
-code_hash = File.read("code_hash.txt")
+code_hash_read = File.read("code_hash.txt")
+code_hash = code_hash_read.chomp
 ip = ENV["IP"]
 az = ENV["AZ"]
 log.debug("code_hash is: #{code_hash}")
 log.debug("ip is: #{ip}")
 log.debug("az is: #{az}")
 
-az_message = ENV["AZ"]
+az_message_import = ENV["AZ"]
+az_message = az_message_import.chomp
 
 db = DB.open "mysql://#{db_username}:#{db_password}@#{db_endpoint}/#{db_name}"
 
@@ -41,7 +43,7 @@ server = HTTP::Server.new(
               time_result = rs.read(Time)
               time = time_result.to_s
               context.response.content_type = "text/plain"
-              context.response.print "Crystal backend: Hello! from #{az_message} commit #{code_hash} at #{time}"
+              context.response.puts "Crystal backend: Hello! from #{az_message} commit #{code_hash} at #{time}"
             end
           end
         end
