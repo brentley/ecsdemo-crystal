@@ -18,3 +18,9 @@ service:
   database:
       name: crystaldb  
       allocatedStorage: 100
+  environment:
+    DB_USERNAME: ${DatabaseMasterUsername}
+    DB_PASSWORD: ${DatabaseMasterPassword}
+    DB_ENDPOINT: ${DatabaseEndpointAddress}
+    DB_PORT: ${DatabaseEndpointPort}
+    DB_NAME: ${DatabaseName}

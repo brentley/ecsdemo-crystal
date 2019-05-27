@@ -1,6 +1,17 @@
 require "logger"
 require "http/server"
 
+require "mysql"
+
+DB.open "mysql://root@localhost/test" do |db|
+  puts "Current time:"
+  db.query "select NOW()"
+end
+
+
+
+
+
 log = Logger.new(STDOUT)
 log.level = Logger::DEBUG
 
