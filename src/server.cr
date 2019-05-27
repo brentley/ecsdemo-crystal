@@ -26,6 +26,8 @@ log.debug("az is: #{az}")
 
 az_message = ENV["AZ"]
 
+db = DB.open "mysql://#{db_username}:#{db_password}@#{db_endpoint}/#{db_name}"
+
 server = HTTP::Server.new(
   [
     HTTP::ErrorHandler.new,
@@ -33,10 +35,15 @@ server = HTTP::Server.new(
     HTTP::CompressHandler.new,
     ]) do |context|
       if context.request.path == "/crystal" || context.request.path == "/crystal/"
-        DB.open "mysql://#{db_username}:#{db_password}@#{db_endpoint}/#{db_name}" do |db|
-          time = db.query "select NOW()"
-          context.response.content_type = "text/plain"
-          context.response.print "Crystal backend: Hello! from #{az_message} commit #{code_hash} at #{time}"
+        DB.open("mysql://#{db_username}:#{db_password}@#{db_endpoint}/#{db_name}") do |db|
+          db.query "select NOW()"  do |rs|
+            rs.each do
+              time_result = rs.read(Time)
+              time = time_result.to_s
+              context.response.content_type = "text/plain"
+              context.response.print "Crystal backend: Hello! from #{az_message} commit #{code_hash} at #{time}"
+            end
+          end
         end
       elsif context.request.path == "/health"
         context.response.content_type = "text/plain"

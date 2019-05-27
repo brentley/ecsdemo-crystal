@@ -1,8 +1,9 @@
 FROM alpine:latest
 RUN apk add crystal shards build-base libressl-dev libcrypto1.1 libzdb-dev
 WORKDIR /src/
-COPY . .
+COPY shard.yml .
 RUN shards install
+COPY . .
 RUN crystal build --release --link-flags="-static" src/server.cr
 
 FROM alpine:latest
