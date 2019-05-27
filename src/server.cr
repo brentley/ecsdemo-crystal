@@ -9,14 +9,6 @@ db_endpoint = ENV["DB_ENDPOINT"]
 db_port = ENV["DB_PORT"]
 db_name = ENV["DB_NAME"]
 
-DB.open "mysql://#{db_username}:#{db_password}@#{db_endpoint}/#{db_name}" do |db|
-  puts "Current time:"
-  db.query "select NOW()"
-end
-
-
-
-
 
 log = Logger.new(STDOUT)
 log.level = Logger::DEBUG
@@ -41,8 +33,11 @@ server = HTTP::Server.new(
     HTTP::CompressHandler.new,
     ]) do |context|
       if context.request.path == "/crystal" || context.request.path == "/crystal/"
-        context.response.content_type = "text/plain"
-        context.response.print "Crystal backend: Hello! from #{az_message} commit #{code_hash}"
+        DB.open "mysql://#{db_username}:#{db_password}@#{db_endpoint}/#{db_name}" do |db|
+          time = db.query "select NOW()"
+          context.response.content_type = "text/plain"
+          context.response.print "Crystal backend: Hello! from #{az_message} commit #{code_hash} at #{time}"
+        end
       elsif context.request.path == "/health"
         context.response.content_type = "text/plain"
         context.response.print "Healthy!"
