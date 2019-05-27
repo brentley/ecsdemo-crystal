@@ -18,7 +18,7 @@ service:
   database:
     name: crystaldb  
     allocatedStorage: 100
-    engine: mysql   
+    engine: aurora   
   environment:
     DB_USERNAME: ${DatabaseMasterUsername}
     DB_PASSWORD: ${DatabaseMasterPassword}
