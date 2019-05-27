@@ -16,8 +16,9 @@ service:
     command: ['echo','It looks like the date is $(date)']
 
   database:
-      name: crystaldb  
-      allocatedStorage: 100
+    name: crystaldb  
+    allocatedStorage: 100
+    engine: mysql   
   environment:
     DB_USERNAME: ${DatabaseMasterUsername}
     DB_PASSWORD: ${DatabaseMasterPassword}
