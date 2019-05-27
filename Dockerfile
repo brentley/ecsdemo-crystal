@@ -1,4 +1,5 @@
-FROM crystallang/crystal:0.26.1
+FROM alpine:latest
+RUN apk add crystal shards build-base libressl-dev libcrypto1.1 libzdb-dev
 WORKDIR /src/
 COPY . .
 RUN shards install
