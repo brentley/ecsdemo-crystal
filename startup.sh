@@ -80,5 +80,11 @@ export CODE_HASH="$(cat code_hash.txt)"
 export IP
 export AZ="${IP} in AZ-${zone}"
 
+echo "Output of ENV:"
+env
+echo "================================"
+echo "Output of SET:"
+set
+
 # exec container command
 exec /server
