@@ -1,4 +1,6 @@
 lib
 .shards
 *.dwarf
-
+*env
+cdk/cdk.out
+cdk.context.json
