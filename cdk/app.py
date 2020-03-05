@@ -5,6 +5,7 @@ from aws_cdk import (
     aws_ec2,
     aws_ecs,
     aws_ecs_patterns,
+    aws_iam,
     aws_servicediscovery,
     core,
 )
@@ -62,11 +63,14 @@ class CrystalService(core.Stack):
         
         self.container = self.fargate_task_def.add_container(
             "CrystalServiceContainerDef",
-            image=aws_ecs.ContainerImage.from_registry("brentley/ecsdemo-crystal"),
+            image=aws_ecs.ContainerImage.from_registry("adam9098/ecsdemo-crystal"),
             memory_reservation_mib=512,
             logging=aws_ecs.LogDriver.aws_logs(
                 stream_prefix='ecsworkshop-crystal'
-            )
+            ),
+            environment={
+                "REGION": getenv('AWS_DEFAULT_REGION')
+            },
         )
         
         self.container.add_port_mappings(
@@ -84,6 +88,13 @@ class CrystalService(core.Stack):
             cloud_map_options=aws_ecs.CloudMapOptions(
                 cloud_map_namespace=self.base_platform.sd_namespace,
                 name='ecsdemo-crystal'
+            )
+        )
+
+        self.fargate_task_def.add_to_task_role_policy(
+            aws_iam.PolicyStatement(
+                actions=['ec2:DescribeSubnets'],
+                resources=['*']
             )
         )
 
