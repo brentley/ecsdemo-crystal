@@ -81,6 +81,7 @@ class CrystalService(core.Stack):
 
         self.fargate_service = aws_ecs.FargateService(
             self, "CrystalFargateService",
+            service_name='ecsdemo-crystal',
             task_definition=self.fargate_task_def,
             cluster=self.base_platform.ecs_cluster,
             security_group=self.base_platform.services_sec_grp,
