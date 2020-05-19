@@ -26,6 +26,9 @@ server = HTTP::Server.new(
       if context.request.path == "/crystal" || context.request.path == "/crystal/"
         context.response.content_type = "text/plain"
         context.response.print "Crystal backend: Hello! from #{az_message} commit #{code_hash}"
+      elsif context.request.path == "/crystal/api" || context.request.path == "/crystal/api/"
+        context.response.content_type = "application/json"
+        context.response.print %Q({"from":"Crystal backend", "message": "#{az_message}", "commit": "#{code_hash.chomp}"})
       elsif context.request.path == "/health"
         context.response.content_type = "text/plain"
         context.response.print "Healthy!"
