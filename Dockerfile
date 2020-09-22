@@ -5,7 +5,8 @@ RUN shards install
 RUN crystal build --release --link-flags="-static" src/server.cr
 
 FROM alpine:latest
-RUN apk -U add curl jq bash
+RUN apk -U add curl jq bash python3 py3-pip &&\
+    pip3 install awscli netaddr
 COPY --from=0 /src/startup.sh /startup.sh
 COPY --from=0 /src/server /server
 COPY --from=0 /src/code_hash.txt /code_hash.txt
